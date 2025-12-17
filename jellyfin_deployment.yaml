@@ -1,0 +1,58 @@
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: jellyfin
+    labels:
+      app: jellyfin
+  spec:
+    replicas: 4
+    slector:
+     matchLabels:
+       app: jellyfin
+  spec:
+    containers:
+     - name: jellyfin
+    image: jellyfin/jellyfin
+    ports:
+       - containerPort: 8096
+    name: http
+    protocol: TCP
+  - containerPort: 7359
+    name: discovery-udp
+    protocol: UDP
+    volumeMounts:
+           - name: jellyfin-config
+             mountPath: /data/config
+           - name: media-movies
+             mountPath: /data/movies
+           - name: media-tvshows
+             mountPath: /data/tvshows
+           - name: media-music
+             mountPath: /data/music
+    volumes:
+          - name: nfs-pv
+            persistentVolumeClaim:
+             claimName: nfs-pv
+          - name: jellyfin-config
+            hostPath:
+            path: /media/vault/config
+            type: Directory
+          - name: media-movies
+            hostPath:
+            path: /media/vault/movies
+            type: Directory
+          - name: media-movies
+            hostPath:
+            path: /media/vault/tvshows
+            type: Directory
+          - name: media-tvshows
+            hostPath:
+             path: /media/vault/music
+             type: Directory
+          - name: media-music
+            hostPath:
+             path: /media/vault
+             type: Directory
+
+      # Optional - extra fonts to be used during transcoding with subtitle burn-in
+  

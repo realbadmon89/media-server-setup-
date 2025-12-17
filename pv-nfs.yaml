@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv # Name of the PV
+spec:
+  capacity:
+    storage: 298Gi # Matches the size of your NFS share
+  accessModes:
+    - ReadWriteMany # Allows multiple pods to read/write simultaneously
+  persistentVolumeReclaimPolicy: Retain # Retains the volume after the PVC is deleted
+  nfs:
+    server: 192.168.2.127 # Remote NFS server IP
+    path: /media/vault/ # expored path
