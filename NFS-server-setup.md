@@ -30,7 +30,7 @@ Dec 16 17:12:33 storageNode systemd[1]: Finished nfs-server.service - NFS server
 # /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
 #
 
-/media/vault 192.168.2.0/24(rw,sync,no_subtree_check)
+/media/vault 192.168.2.0/24(rw,sync,no_subtree_check,no_root_squash)
   
 ```
 
